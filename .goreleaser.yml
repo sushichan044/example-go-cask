@@ -55,7 +55,7 @@ homebrew_casks:
       name: homebrew-experimental-tap
       token: "{{ .Env.TAP_GITHUB_TOKEN }}"
     url:
-      template: "#{GitHubHelper.get_asset_api_url({{ .Tag }}, {{ .ArtifactName }})}"
+      template: "#{GitHubHelper.get_asset_api_url(\"{{ .Tag }}\", \"{{ .ArtifactName }}\")}"
       headers:
         - "Accept: application/octet-stream"
         - "Authorization: Bearer #{GitHubHelper.token}"
