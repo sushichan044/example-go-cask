@@ -1,0 +1,35 @@
+name: tagpr
+on:
+  push:
+    branches:
+      - main
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  tagpr:
+    runs-on: ubuntu-24.04
+    if: github.repository == 'sushichan044/example-go-cask'
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - uses: ./.github/actions/setup
+        with:
+          go-version-file: go.mod
+
+      - uses: Songmu/tagpr@812f0c28980cb9a1e5cf427b65c1ac6a1d2b4377 # v1.6.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
