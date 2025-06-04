@@ -73,12 +73,9 @@ homebrew_casks:
         def self.token
           require "utils/github"
 
-          @github_token = ENV["HOMEBREW_GITHUB_API_TOKEN"]
+          @github_token = ENV["HOMEBREW_GITHUB_API_TOKEN"] || GitHub::API.credentials
 
-          unless @github_token
-            @github_token = GitHub::API.credentials
-            raise "Failed to retrieve token" if @github_token.nil? || @github_token.empty?
-          end
+          raise "Failed to retrieve token" if @github_token.nil? || @github_token.empty?
 
           @github_token
         end
