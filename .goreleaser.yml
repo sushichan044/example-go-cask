@@ -86,14 +86,11 @@ homebrew_casks:
     hooks:
       post:
         install: |
-          # if xattr not exists, early return
-          if system_command("type", args: ["/usr/bin/xattr"]).exit_status != 0
+          if system_command("/usr/bin/xattr", args: ["-h"]).exit_status != 0
             exit 0
           end
 
-          pp stage_path
-
-          system_command "/usr/bin/xattr", args: ["-d", "com.apple.quarantine", "#{stage_path}/example-go-cask"]
+          system_command "/usr/bin/xattr", args: ["-d", "com.apple.quarantine", "#{HOMEBREW_PREFIX.join("bin")}/example-go-cask"]
 
 changelog:
   sort: asc
