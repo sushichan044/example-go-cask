@@ -1,0 +1,7 @@
+[tagpr]
+	vPrefix = true
+	releaseBranch = main
+	versionFile = version/version.go
+    release = false
+    changelog = false
+    commitPrefix = tagpr:
